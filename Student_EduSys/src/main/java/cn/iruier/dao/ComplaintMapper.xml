@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--约束文件 -->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--该映射文件对应的接口 -->
+<mapper namespace="cn.iruier.dao.ComplaintMapper">
+
+    <insert id="save" parameterType="Complaint">
+        insert into
+        t_complaint(comp_content,createtime,status)
+        values(#{comp_content},now(),1)
+    </insert>
+
+</mapper>

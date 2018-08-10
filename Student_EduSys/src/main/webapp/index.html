@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>学员后台</title>
+    <link rel="stylesheet" href="media/layui/css/layui.css" media="all">
+    <!-- <link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css"> -->
+    <link rel="stylesheet" href="media/css/app.css" media="all">
+    <script src="media/js/jquery.min.js"></script>
+    <script src="media/layui/layui.js"></script>
+    <script type="text/javascript" src="media/js/index.js"></script>
+    <script>
+        var message;
+        layui.config({
+            base: 'media/layui/lay/modules/'
+        }).use(['app', 'message'], function () {
+            var app = layui.app,
+                $ = layui.jquery,
+                layer = layui.layer;
+            //将message设置为全局以便子页面调用
+            message = layui.message;
+            //主入口
+            app.set({
+                type: 'iframe'
+            }).init();
+
+        });
+    </script>
+</head>
+
+<body>
+<div class="layui-layout layui-layout-admin kit-layout-admin ">
+    <div class="layui-header ">
+        <div class="layui-logo"><img src="media/images/qf_logo.png" style="margin-right:10px"/><span
+                style="font-size:22px">学员后台</span></div>
+        <div class="layui-logo kit-logo-mobile"></div>
+        <ul class="layui-nav layui-layout-right kit-nav">
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <img src="media/images/qf.jpg" class="layui-nav-img"><span id="stu_name"></span>
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="javascript:;" data-url="studentInfo.html" data-icon="&#xe63c;" data-title="我的资料"
+                           kit-target data-id='1'>基本资料</a></dd>
+                    <dd><a href="javascript:;">修改密码</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item"><a href="loginout.do"><i class="fa fa-sign-out" aria-hidden="true"></i> 注销</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="layui-side layui-bg-black kit-side">
+        <div class="layui-side-scroll">
+            <div class="kit-side-fold"><i class="fa fa-navicon layui-icon layui-icon-template-1" aria-hidden="true"></i>
+            </div>
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree" lay-filter="kitNavbar" kit-navbar>
+                <li class="layui-nav-item">
+                    <a class="" href="javascript:;"><i class="layui-icon layui-icon-user" aria-hidden="true"></i><span> 学员后台</span></a>
+                    <dl class="layui-nav-child">
+
+                        <dd>
+                            <a href="javascript:;" data-url="studentInfo.html" data-icon="&#xe63c;" data-title="我的资料"
+                               kit-target data-id='1'><i class="layui-icon layui-icon-form"></i><span> 我的资料</span></a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:;" data-url="classInfo.html" data-icon="&#xe770;" data-title="班级详情"
+                               kit-target data-id='2'><i class="layui-icon layui-icon-user"></i><span> 班级详情</span></a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:;" data-url="weekly.html" data-icon="&#xe641;" data-title="我的周报"
+                               kit-target data-id='3'><i class="layui-icon layui-icon-share"></i><span> 我的周报</span></a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:;" data-url="evaluation.html" data-icon="&#xe6b2;" data-title="我的评价"
+                               kit-target data-id='4'><i class="layui-icon layui-icon-survey"></i><span> 我的评价</span></a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:;" data-url="question.html" data-icon="&#xe606;" data-title="技术问题"
+                               kit-target data-id='5'><i class="layui-icon layui-icon-chat"></i><span> 技术问题</span></a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:;" data-url="complaint.html" data-icon="&#xe60b;" data-title="匿名投诉"
+                               kit-target data-id='6'><i class="layui-icon layui-icon-about"></i><span> 匿名投诉</span></a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:;" data-url="vipApply.html" data-icon="&#xe756;" data-title="VIP申请"
+                               kit-target data-id='7'><i class="layui-icon layui-icon-fire"></i><span> VIP申请</span></a>
+                        </dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a class="" href="javascript:;"><i class="layui-icon layui-icon-chart" aria-hidden="true"></i><span> 提升自我</span></a>
+                    <dl class="layui-nav-child">
+
+                        <dd>
+                            <a href="javascript:;" data-url="examAdd.html" data-icon="fa-user" data-title="习题新增"
+                               kit-target data-id='8'><i class="layui-icon">&#xe6c6;</i><span>习题新增</span></a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:;" data-url="examList.html" data-icon="fa-user" data-title="习题列表"
+                               kit-target data-id='9'><i class="layui-icon">&#xe628;</i><span>习题列表</span></a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:;" data-url="nav.html" data-icon="&#xe628;" data-title="面试宝典" kit-target
+                               data-id='10'><i class="layui-icon">&#xe628;</i><span>面试宝典</span></a>
+                        </dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;"><i class="layui-icon layui-icon-read"
+                                              aria-hidden="true"></i><span> 我的资源</span></a>
+                    <dl class="layui-nav-child">
+
+                        <dd>
+                            <a href="javascript:;" data-url="form.html" data-icon="fa-user" data-title="学习笔记" kit-target
+                               data-id='11'><i class="layui-icon">&#xe6c6;</i><span>学习笔记</span></a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:;" data-url="form.html" data-icon="fa-user" data-title="代码仓库" kit-target
+                               data-id='12'><i class="layui-icon">&#xe628;</i><span>代码仓库</span></a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:;" data-url="nav.html" data-icon="&#xe628;" data-title="资料仓库" kit-target
+                               data-id='13'><i class="layui-icon">&#xe628;</i><span>资料仓库</span></a>
+                        </dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;"><i class="layui-icon layui-icon-tabs"
+                                              aria-hidden="true"></i><span> 学员考勤</span></a>
+                    <dl class="layui-nav-child">
+
+                        <dd>
+                            <a href="javascript:;" data-url="form.html" data-icon="fa-user" data-title="学员请假" kit-target
+                               data-id='11'><i class="layui-icon">&#xe6c6;</i><span>学员请假</span></a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:;" data-url="form.html" data-icon="fa-user" data-title="学员违纪" kit-target
+                               data-id='12'><i class="layui-icon">&#xe628;</i><span>学员违纪</span></a>
+                        </dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;"><i class="layui-icon layui-icon-notice"
+                                              aria-hidden="true"></i><span> 消息中心</span></a>
+                    <dl class="layui-nav-child">
+
+                        <dd>
+                            <a href="javascript:;" data-url="form.html" data-icon="fa-user" data-title="邮件消息" kit-target
+                               data-id='14'><i class="layui-icon">&#xe6c6;</i><span>邮件消息</span></a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:;" data-url="form.html" data-icon="fa-user" data-title="短信消息" kit-target
+                               data-id='15'><i class="layui-icon">&#xe6c6;</i><span>短信消息</span></a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:;" data-url="form.html" data-icon="fa-user" data-title="系统消息" kit-target
+                               data-id='16'><i class="layui-icon">&#xe628;</i><span>系统消息</span></a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:;" data-url="nav.html" data-icon="&#xe628;" data-title="留言消息" kit-target
+                               data-id='17'><i class="layui-icon">&#xe628;</i><span>留言消息</span></a>
+                        </dd>
+                    </dl>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+    <div class="layui-body" id="container">
+        <!-- 内容主体区域 -->
+        <div style="padding: 15px;">主体内容加载中,请稍等...</div>
+    </div>
+
+    <div class="layui-footer" align="center">
+        <!-- 底部固定区域 -->
+        2018 &copy;
+        <a href="http://www.iruier.cn/">iruier.cn </a> 版权所有
+    </div>
+</div>
+</body>
+
+</html>

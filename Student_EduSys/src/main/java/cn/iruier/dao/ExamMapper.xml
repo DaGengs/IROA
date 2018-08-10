@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--约束文件 -->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--该映射文件对应的接口 -->
+<mapper namespace="cn.iruier.dao.ExamMapper">
+    <insert id="save" parameterType="Exam">
+        insert into t_exam(exam_title,exam_content,user_name,createtime,exam_type)
+        values(#{exam_title},#{exam_content},#{user_name},now(),#{exam_type})
+    </insert>
+
+    <update id="update"></update>
+
+    <select id="queryAll" resultType="Exam">
+        select * from t_exam;
+    </select>
+
+    <select id="queryCount" resultType="Integer">
+        select count(*) from t_exam;
+    </select>
+</mapper>

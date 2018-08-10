@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--约束文件 -->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--该映射文件对应的接口 -->
+<mapper namespace="cn.iruier.dao.ContactMapper">
+
+    <insert id="save" parameterType="Contact">
+        insert into t_contact(user_no,cont_name,cont_rel,cont_addr,cont_phone,status)
+        values(#{stu_no},#{cont_name},#{cont_rel},#{cont_addr},#{cont_phone},1)
+    </insert>
+
+    <select id="queryByNo" resultType="Contact">
+        select * from t_contact where user_no = #{user_no}
+    </select>
+</mapper>

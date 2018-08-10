@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>用户管理</title>
+    <link rel="stylesheet" href="media/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="media/css/font-awesome.min.css" media="all"/>
+    <script src="media/js/jquery.min.js"></script>
+    <script src="media/layui/layui.js"></script>
+    <script src="media/js/user.js"></script>
+</head>
+<body>
+<script type="text/html" id="toolbar">
+    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="addRole"><i class="layui-icon">&#xe642;</i>分配角色</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
+</script>
+<script type="text/html" id="roleTpl">
+    {{# for(var i = 0; i < d.roles.length; i++) { }}
+    {{# if (d.roles[i].role_name == null) { }}
+    暂无
+    {{# } }}
+    {{ d.roles[i].role_name }}
+    {{# } }}
+</script>
+<div style="display: none;" id="addModel">
+    <form class="layui-form">
+        <div style="margin-top: 30px;">
+            <div class="layui-form-item">
+                <label class="layui-form-label">用户名</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="user_no" lay-verify="required" placeholder="请输入用户名" autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">密码</label>
+                <div class="layui-input-inline">
+                    <input type="password" id="user_password" lay-verify="required" placeholder="请输入密码"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">真实姓名</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="realname" lay-verify="required" placeholder="请输入真实姓名"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div style="margin-left: 1200px;margin-top: 30px;padding-left: 5px">
+    <div class="layui-btn-group">
+        <a class="layui-btn layui-btn-md layui-btn-normal" href="javascript:;" data-method="addStudent" id="addStudent">
+            <i class="layui-icon">&#xe654;</i>新增学生用户
+        </a>
+        <a class="layui-btn layui-btn-md layui-btn-normal" href="javascript:;" data-method="addEmployee"
+           id="addEmployee">
+            <i class="layui-icon">&#xe654;</i>新增员工用户
+        </a>
+        <!--  <button class="layui-btn layui-btn-primary">
+              <i class="layui-icon">&#xe642;</i>修改
+          </button>
+          <button class="layui-btn layui-btn-primary">
+              <i class="layui-icon">&#xe640;</i>删除
+          </button>-->
+    </div>
+</div>
+<div style="display: none;" id="roleModel">
+    <form class="layui-form">
+        <div class="layui-form-item" style="margin-top: 20px">
+            <label class="layui-form-label">选择角色：</label>
+            <div class="layui-input-block" id="roleList">
+            </div>
+        </div>
+    </form>
+</div>
+<div class="layui-container">
+    <table id="tbdata" lay-filter="tbop"></table>
+</div>
+</body>
+</html>

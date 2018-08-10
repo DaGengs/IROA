@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--约束文件 --><!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.iruier.dao.UserMapper">
+    <insert id="save" parameterType="User">
+        insert into t_user(user_no, user_password,user_idNumber, user_name, status) values (#{user_no},
+        #{user_password}, #{user_idNumber}, #{user_name}, 1)
+    </insert>
+
+    <select id="queryByNo" resultMap="userRole">
+        select u.*,r.role_id,r.role_name from t_user u left join t_user_role ur on u.user_id = ur.user_id left join
+        t_role r on r.role_id = ur.role_id where status = 1 and u.user_no = #{user_no}
+    </select>
+
+    <select id="queryByPage" resultMap="userRole">
+        select u.*,r.role_id,r.role_name from t_user u left join t_user_role ur on u.user_id = ur.user_id left join
+        t_role r on r.role_id = ur.role_id where u.status = 1 limit #{index}, #{size}
+    </select>
+
+    <select id="queryCount" resultType="Integer">
+        select count(*) from t_user where status = 1
+    </select>
+
+    <update id="deleteUser">
+        update t_user set status = 2 where user_id = #{user_id}
+    </update>
+
+    <delete id="deleteRole">
+        delete from t_user_role where user_id = #{user_id}
+    </delete>
+
+    <insert id="updateRole">
+        insert into t_user_role(user_id, role_id) values(#{user_id}, #{role_id})
+    </insert>
+
+    <select id="queryMenu" resultMap="userMenu">
+        select m.* from t_menu m left join t_role_menu rm on m.menu_id = rm.menu_id left join t_user_role ur on
+        rm.role_id = ur.role_id where m.menu_p_id = 0 and ur.user_id = #{user_id};
+    </select>
+
+    <select id="queryChildMenu" resultType="Menu">
+        select * from t_menu where menu_p_id = #{menu_id};
+    </select>
+
+    <resultMap id="userRole" type="User">
+        <id property="user_id" column="user_id"></id>
+        <result property="user_no" column="user_no"></result>
+        <result property="user_password" column="user_password"></result>
+        <result property="user_idNumber" column="user_idNumber"></result>
+        <result property="user_name" column="user_name"></result>
+        <result property="status" column="status"></result>
+        <collection property="roles" ofType="Role">
+            <result property="role_id" column="role_id"></result>
+            <result property="role_name" column="role_name"></result>
+        </collection>
+    </resultMap>
+
+    <resultMap id="userMenu" type="cn.iruier.common.vo.MenuVo">
+        <id property="id" column="menu_id"></id>
+        <result property="title" column="menu_name"></result>
+        <result property="icon" column="menu_icon"></result>
+    </resultMap>
+</mapper>

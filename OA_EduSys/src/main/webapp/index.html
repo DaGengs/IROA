@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>员工后台</title>
+    <link rel="stylesheet" href="media/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="media/css/app.css" media="all">
+    <script src="media/js/jquery.min.js"></script>
+    <script src="media/layui/layui.js"></script>
+    <script src="media/js/index.js"></script>
+</head>
+<script>
+    layui.use(['element'], function () {
+        var element = layui.element;
+        $(function () {
+            $.ajax({
+                url: "getMenu.do",
+                success: function (data) {
+                    console.log(data);
+                    var str = "";
+                    for (var i = 0; i < data.length; i++) {
+                        str += "<li class='layui-nav-item'>";
+                        str += "<a href='javascript:;'><i class='fa fa-plug layui-icon' aria-hidden='true'>" + data[i].icon + "</i><span> " + data[i].title + "</span></a>";
+                        if (data[i].children.length > 0) {
+                            str += "<dl class='layui-nav-child'>";
+                            for (var j = 0; j < data[i].children.length; j++) {
+                                str += "<dd>";
+                                str += "<a href='javascript:;' data-url='" + data[i].children[j].menu_url + "' data-icon='" + data[i].children[j].menu_icon + "' data-title='" + data[i].children[j].menu_name + "' kit-target data-id='" + data[i].children[j].menu_id + "'> <i class='layui-icon'>" + data[i].children[j].menu_icon + "</i><span> " + data[i].children[j].menu_name + "</span></a>";
+                                str += "</dd>";
+                            }
+                            str += "</dl>";
+                        }
+                        str += "</li>";
+                    }
+                    $("#menus").append(str);
+                    element.render('nav');
+                }
+            });
+        });
+    })
+
+</script>
+
+<body>
+<div class="layui-layout layui-layout-admin kit-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo"><img src="media/images/qf_logo.png" style="margin-right:10px"/><span
+                style="font-size:22px">员工后台系统</span></div>
+        <div class="layui-logo kit-logo-mobile"></div>
+        <ul class="layui-nav layui-layout-right kit-nav">
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <img src="" class="layui-nav-img" id="empl_img"><span id="empl_name"></span>
+                </a>
+                <dl class="layui-nav-child">
+                    <div class="site-demo-button" id="layerDemo" style="margin-bottom: 0;">
+                        <dd><a href="javascript:;" data-method="showInfo" id="a1">我的资料</a></dd>
+                        <dd><a href="javascript:;" data-method="editPwd" id="a2">修改密码</a></dd>
+                    </div>
+                </dl>
+            </li>
+            <li class="layui-nav-item"><a href="loginout.do"><i class="fa fa-sign-out" aria-hidden="true"></i> 注销</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="layui-side layui-bg-black kit-side">
+        <div class="layui-side-scroll">
+            <div class="kit-side-fold"><i class="fa fa-navicon layui-icon layui-icon-template-1" aria-hidden="true"></i>
+            </div>
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree" lay-filter="kitNavbar" kit-navbar id="menus">
+            </ul>
+        </div>
+    </div>
+    <div class="layui-body" id="container">
+        <!-- 内容主体区域 -->
+        <div style="padding: 15px;">主体内容加载中,请稍等...</div>
+    </div>
+
+    <div class="layui-footer" align="center">
+        <!-- 底部固定区域 -->
+        2018 &copy;
+        <a href="http://www.iruier.cn/">iruier.cn </a> 版权所有
+
+    </div>
+</div>
+<!--个人信息Model-->
+<div style="display: none;" id="infoModel">
+    <fieldset class="layui-elem-field layui-field-title"
+              style="margin-top: 20px;">
+        <legend align="center">我的信息</legend>
+    </fieldset>
+    <form class="layui-form">
+        <div class="layui-row">
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">工号</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="empl_no" class="layui-input" readonly>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">员工姓名</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="empl_name1" class="layui-input" readonly>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">性别</label>
+                    <div class="layui-input-inline">
+                        <input type="radio" name="empl_gender" value="男" title="男" readonly>
+                        <input type="radio" name="empl_gender" value="女" title="女" readonly>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">联系方式</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="empl_phone" class="layui-input" readonly>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">邮箱</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="empl_email" class="layui-input" readonly>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">所属部门</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="dept_name" class="layui-input" readonly>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">入职时间</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="createDate"
+                               class="layui-input" readonly>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">工作照片</label>
+                    <input type="hidden" id="empl_imgUrl" name="empl_imgUrl">
+                    <img alt="" src="media/images/二寸照片.png" width="200px" height="300px" id="imgUrl">
+                </div>
+            </div>
+        </div>
+
+        <hr/>
+
+    </form>
+</div>
+<!--修改密码model-->
+<div style="display: none;" id="editPwd">
+    <fieldset class="layui-elem-field layui-field-title"
+              style="margin-top: 20px;">
+        <legend align="center">修改密码</legend>
+    </fieldset>
+    <form class="layui-form">
+        <div class="layui-container" style="width: 500px">
+            <div class="layui-row" style="margin-left: 40px">
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">工号</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="e_no" class="layui-input" readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">旧密码</label>
+                        <div class="layui-input-inline">
+                            <input type="password" id="old_pwd" class="layui-input">
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">新密码</label>
+                        <div class="layui-input-inline">
+                            <input type="password" id="new_pwd" class="layui-input">
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">确认新密码</label>
+                        <div class="layui-input-inline">
+                            <input type="password" id="rel_pwd" class="layui-input">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr/>
+    </form>
+</div>
+</body>
+
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>权限管理</title>
+    <link rel="stylesheet" href="media/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="media/css/font-awesome.min.css" media="all"/>
+    <script src="media/js/jquery.min.js"></script>
+    <script src="media/layui/layui.js"></script>
+    <script src="media/js/menu.js"></script>
+</head>
+<body>
+<script type="text/html" id="toolbar">
+    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="layui-icon">&#xe642;</i>编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
+</script>
+
+<div style="display: none;" id="addModel">
+    <form class="layui-form">
+        <div style="margin-top: 30px;">
+            <div class="layui-form-item">
+                <label class="layui-form-label">权限名称</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="menu_name" lay-verify="required" placeholder="请输入角色名称" autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">菜单路径</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="menu_url" lay-verify="required" placeholder="请输入角色名称" autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">菜单图标</label>
+                <div class="layui-input-inline">
+                    <select name="menu_icon" id="menu_icon" lay-verify="required">
+                        <option value="&#xe642;"><i class="layui-icon">&#xe642;</i></option>
+                        <option value="&#xe642;"><i class="layui-icon">&#xe642;</i></option>
+                        <option value="&#xe642;"><i class="layui-icon">&#xe642;</i></option>
+                        <option value="&#xe642;"><i class="layui-icon">&#xe642;</i></option>
+                        <option value="&#xe642;"><i class="layui-icon">&#xe642;</i></option>
+                        <option value="&#xe642;"><i class="layui-icon">&#xe642;</i></option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">上级权限</label>
+                <div class="layui-input-inline">
+                    <!--<ul id="menu_p_id"></ul>-->
+                    <!--<input type="text" id="treeselecttest" placeholder="模块" autocomplete="off" class="layui-input">-->
+                    <select name="menu_p_name" id="menu_p_name">
+
+                    </select>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div style="margin-left: 1400px;margin-top: 30px">
+    <div class="layui-btn-group">
+        <a class="layui-btn layui-btn-md layui-btn-normal" href="javascript:;" data-method="addMenu" id="add">
+            <i class="layui-icon">&#xe654;</i>新增
+        </a>
+        <!--  <button class="layui-btn layui-btn-primary">
+              <i class="layui-icon">&#xe642;</i>修改
+          </button>
+          <button class="layui-btn layui-btn-primary">
+              <i class="layui-icon">&#xe640;</i>删除
+          </button>-->
+    </div>
+</div>
+<div class="layui-container">
+    <table id="tbdata"></table>
+</div>
+</body>
+</html>

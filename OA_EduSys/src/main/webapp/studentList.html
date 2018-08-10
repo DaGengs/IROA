@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="media/layui/css/layui.css" media="all">
+    <script src="media/js/jquery.min.js"></script>
+</head>
+<body>
+<table id="tbdata" lay-filter="tbop"></table>
+<script type="text/html" id="barop">
+    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="detail"><i class="layui-icon">&#xe615;</i>查看详情</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon">&#xe640;</i>删除</a>
+</script>
+<script src="media/layui/layui.js"></script>
+<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+<script>
+    layui.use('table', function () {
+        var table = layui.table;
+
+        //第一个实例
+        table.render({
+            elem: '#tbdata'
+            , url: 'queryByPage.do' //数据接口
+            , page: true //开启分页
+            , cols: [[ //表头
+                {field: 'stu_no', title: '学号', sort: true, fixed: 'left'}
+                , {field: 'stu_name', width: '5%', title: '学员名称'}
+                , {field: 'class_name', title: '所在班级'}
+                , {field: 'stu_gender', width: '4%', title: '性别'}
+                , {field: 'stu_phone', title: '手机号'}
+                , {field: 'stu_QQ', title: 'QQ号'}
+                , {field: 'stu_introno', title: '籍贯'}
+                , {field: 'stu_schoolName', title: '毕业学校'}
+                , {field: 'stu_education', title: '学历'}
+                , {field: 'createtime', title: '入学日期'}
+                , {
+                    field: 'status', width: '5%', title: '状态', templet: function (obj) {
+                        var r;
+                        switch (obj.status) {
+                            //有效
+                            case 1:
+                                r = "<span class='layui-badge layui-bg-blue'>有效</span>";
+                                break;
+                            case 2:
+                                r = "<span class='layui-badge layui-bg-gray'>无效</span>";
+                                break;
+                        }
+                        return r;
+                    }
+                }
+                , {field: 'right', width: '10%', title: '操作', toolbar: "#barop"}
+            ]]
+        });
+        //监听工具条
+        table.on('tool(tbop)', function (obj) {
+            var data = obj.data;
+            if (obj.event === 'del') {
+                layer.confirm('是否确认删除学员?', function (index) {
+                    $.ajax({
+                        url: "delete.do",
+                        type: "POST",
+                        data: "stu_no=" + data.stu_no,
+                        success: function (data) {
+                            if (data.code == 1) {
+                                obj.del();//删除表格中的对应行数据
+                                layer.close(index);
+                                layer.msg("删除成功", {icon: 6});
+                            } else {
+                                layer.msg("删除失败", {icon: 5});
+                            }
+                        }
+                    });
+                });
+            } else if (obj.event === 'detail') {//编辑 修改
+                // location.href="staffupdate.html?d="+ encodeURI(JSON.stringify(data));
+                layer.msg(JSON.stringify(data));
+
+            }
+        });
+    });
+
+</script>
+</body>
+</html>

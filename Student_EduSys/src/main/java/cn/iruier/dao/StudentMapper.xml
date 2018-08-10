@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--约束文件 -->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--该映射文件对应的接口 -->
+<mapper namespace="cn.iruier.dao.StudentMapper">
+
+    <update id="update" parameterType="Student">
+        update t_student
+        <set>
+            <if test="stu_schoolName != null">
+                stu_schoolName = #{stu_schoolName},
+            </if>
+            <if test="stu_education != null">
+                stu_education = #{stu_education},
+            </if>
+            <if test="stu_origin != null">
+                stu_origin = #{stu_origin},
+            </if>
+            <if test="photo_url != null">
+                photo_url = #{photo_url},
+            </if>
+            <if test="card_pre != null">
+                card_pre = #{card_pre},
+            </if>
+            <if test="card_suf != null">
+                card_suf = #{card_suf}
+            </if>
+        </set>
+        where stu_no = #{stu_no};
+    </update>
+
+    <select id="queryByNo" resultMap="stu">
+        select
+        s.*,cl.class_name,p.name prov_name,ct.name city_name,co.name
+        county_name,a.addr_detail,c.cont_name,c.cont_phone,c.cont_rel,c.cont_addr
+        from t_student s left join t_classes cl on s.class_no = cl.class_no left join t_contact c on s.stu_no =
+        c.user_no left
+        join t_address a on s.stu_no = a.user_no left join t_province p on
+        a.prov_name = p.id left join t_city ct on a.city_name = ct.no left
+        join t_county co on a.county_name = co.no where s.stu_no = #{stu_no}
+    </select>
+
+    <resultMap type="Student" id="stu">
+        <id property="stu_no" column="stu_no"/>
+        <result property="stu_idNumber" column="stu_idNumber"/>
+        <result property="stu_name" column="stu_name"/>
+        <result property="stu_gender" column="stu_gender"/>
+        <result property="stu_phone" column="stu_phone"/>
+        <result property="stu_QQ" column="stu_QQ"/>
+        <result property="stu_schoolName" column="stu_schoolName"/>
+        <result property="stu_education" column="stu_education"/>
+        <result property="stu_introno" column="stu_introno"/>
+        <result property="stu_origin" column="stu_origin"/>
+        <result property="card_pre" column="card_pre"/>
+        <result property="card_suf" column="card_suf"/>
+        <result property="photo_url" column="photo_url"/>
+        <result property="createtime" column="createtime"/>
+        <result property="status" column="status"/>
+        <association property="classes" javaType="Classes">
+            <result property="class_name" column="class_name"/>
+        </association>
+        <association property="contact" javaType="Contact">
+            <result property="cont_name" column="cont_name"/>
+            <result property="cont_phone" column="cont_phone"/>
+            <result property="cont_rel" column="cont_rel"/>
+            <result property="cont_addr" column="cont_addr"/>
+        </association>
+        <association property="address" javaType="Address">
+            <result property="prov_name" column="prov_name"/>
+            <result property="city_name" column="city_name"/>
+            <result property="county_name" column="county_name"/>
+            <result property="addr_detail" column="addr_detail"/>
+        </association>
+    </resultMap>
+</mapper>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--约束文件 -->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--该映射文件对应的接口 -->
+<mapper namespace="cn.iruier.dao.UserMapper">
+    <select id="queryByNo" resultType="cn.iruier.entity.User">
+        select * from t_user where user_role = 1 and status = 1 and user_no = #{no} or user_idNumber = #{no}
+    </select>
+</mapper>

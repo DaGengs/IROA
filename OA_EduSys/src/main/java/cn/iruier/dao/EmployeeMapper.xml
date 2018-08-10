@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--约束文件 -->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--该映射文件对应的接口 -->
+<mapper namespace="cn.iruier.dao.EmployeeMapper">
+    <update id="update" parameterType="cn.iruier.entity.Employee">
+        update t_employee
+        <set>
+            <if test="empl_name != null">
+                empl_name = #{empl_name},
+            </if>
+            <if test="empl_phone != null">
+                empl_phone = #{empl_phone},
+            </if>
+            <if test="empl_gender != null">
+                empl_gender = #{empl_gender},
+            </if>
+            <if test="empl_email != null">
+                empl_email = #{empl_email},
+            </if>
+            <if test="empl_imgUrl != null">
+                empl_imgUrl = #{empl_imgUrl},
+            </if>
+            <if test="dept_id != 0">
+                dept_id = #{dept_id},
+            </if>
+        </set>
+        <where>
+            <if test="empl_no != null">
+                empl_no = #{empl_no}
+            </if>
+        </where>
+    </update>
+
+    <resultMap type="cn.iruier.entity.Employee" id="queryByPage">
+        <id property="empl_no" column="empl_no"/>
+        <result property="empl_name" column="empl_name"/>
+        <result property="empl_phone" column="empl_phone"/>
+        <result property="empl_gender" column="empl_gender"/>
+        <result property="empl_email" column="empl_email"/>
+        <result property="empl_imgUrl" column="empl_imgUrl"/>
+        <result property="createDate" column="createDate"/>
+        <association property="department" javaType="cn.iruier.entity.Department">
+            <result property="dept_name" column="dept_name"/>
+        </association>
+    </resultMap>
+
+    <resultMap type="cn.iruier.entity.Employee" id="queryByNo">
+        <id property="empl_no" column="empl_no"/>
+        <result property="empl_name" column="empl_name"/>
+        <result property="empl_phone" column="empl_phone"/>
+        <result property="empl_gender" column="empl_gender"/>
+        <result property="empl_email" column="empl_email"/>
+        <result property="empl_imgUrl" column="empl_imgUrl"/>
+        <result property="createDate" column="createDate"/>
+        <association property="department" javaType="cn.iruier.entity.Department">
+            <result property="dept_name" column="dept_name"/>
+        </association>
+    </resultMap>
+</mapper>

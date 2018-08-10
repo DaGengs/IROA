@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--约束文件 -->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--该映射文件对应的接口 -->
+<mapper namespace="cn.iruier.dao.WeeklyMapper">
+
+    <insert id="save" parameterType="Weekly">
+        insert into
+        t_weekly(week_title,week_content,createtime,status,stu_name)
+        values(#{week_title},#{week_content},now(),1,#{stu_name})
+    </insert>
+
+    <select id="queryByName" resultMap="weekly">
+        select w.* from t_weekly w
+        left join t_student s on w.stu_name = s.stu_name where s.stu_name =
+        #{name};
+    </select>
+
+    <resultMap type="Weekly" id="weekly">
+        <id property="week_id" column="week_id"/>
+        <result property="stu_name" column="stu_name"/>
+        <result property="week_title" column="week_title"/>
+        <result property="week_content" column="week_content"/>
+        <result property="createtime" column="createtime"/>
+        <result property="status" column="status"/>
+    </resultMap>
+</mapper>

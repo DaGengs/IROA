@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--约束文件 -->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--该映射文件对应的接口 -->
+<mapper namespace="cn.iruier.dao.AddressMapper">
+    <select id="queryProvince" resultType="cn.iruier.common.vo.AddressVo">
+        select * from t_province
+    </select>
+    <select id="queryCity" statementType="STATEMENT" resultType="cn.iruier.common.vo.AddressVo">
+        select * from t_city where no like '${pno}%'
+    </select>
+    <select id="queryCounty" statementType="STATEMENT" resultType="cn.iruier.common.vo.AddressVo">
+        select * from t_county where no like '${cno}%'
+    </select>
+
+    <insert id="save" parameterType="Address">
+        insert into t_address(user_no,prov_name,city_name,county_name,addr_detail,addr_type,status)
+        values(#{stu_no},#{prov_name},#{city_name},#{county_name},#{addr_detail},1,1)
+    </insert>
+</mapper>

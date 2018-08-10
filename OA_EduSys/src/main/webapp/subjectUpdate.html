@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>学科修改</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="media/layui/css/layui.css" media="all">
+    <script src="media/js/jquery.min.js"></script>
+    <script src="media/layui/layui.js"></script>
+    <script src="media/js/subject.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var json = getData();
+            var obj = JSON.parse(decodeURI(json));
+            showData(obj);
+        })
+
+        function getData() {
+            var url = window.location.search;
+            index = url.indexOf("?");
+            if (index > -1) {
+                var str = url.substr(index + 1);
+                if (str.indexOf('=')) {
+                    return str.split('=')[1];
+                }
+            }
+            return null;
+        }
+
+        function showData(obj) {
+            $("#subj_id").val(obj.subj_id);
+            $("#subj_name").val(obj.subj_name);
+            $("#subj_week").val(obj.subj_week);
+            $("#subj_type").val(obj.subj_type);
+            $("#createtime").val(obj.createtime);
+        }
+    </script>
+</head>
+<body>
+<fieldset class="layui-elem-field layui-field-title">
+    <legend>学科修改</legend>
+    <div class="layui-field-box">
+        <div class="layui-container">
+            <form class="layui-form">
+                <div class="layui-row layui-col-md-offset4">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">学科编号</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="subj_id" class="layui-input" readonly>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">学科名称</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="subj_name" lay-verify="required" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">学科周期</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="subj_week" lay-verify="required|number" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">学科类型</label>
+                        <div class="layui-input-inline">
+                            <select name="subj_type" id="subj_type">
+                                <option value="">请选择</option>
+                                <option value="普通班">普通班</option>
+                                <option value="混合班">混合班</option>
+                                <option value="线上班">线上班</option>
+                                <option value="好程序员">好程序员</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">成立日期</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="createtime" lay-verify="required|date" class="layui-input" readonly>
+                        </div>
+                    </div>
+                    <div class="layui-form-item"
+                         style="margin-top: 50px; margin-left: 10px">
+                        <div class="layui-input-block">
+                            <button class="layui-btn layui-btn-normal" lay-submit="" lay-filter="update"
+                                    type="button">保存
+                            </button>
+                            <a class="layui-btn" href="javascript: window.location.href = document.referrer;"
+                               type="button">返回</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</fieldset>
+<hr class="layui-bg-blue">
+</body>
+</html>

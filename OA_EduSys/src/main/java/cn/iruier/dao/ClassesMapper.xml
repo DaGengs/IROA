@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--约束文件 -->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--该映射文件对应的接口 -->
+<mapper namespace="cn.iruier.dao.ClassesMapper">
+
+    <resultMap type="cn.iruier.entity.Classes" id="queryByPage">
+        <id property="class_id" column="class_id"/>
+        <result property="class_no" column="class_no"/>
+        <result property="class_name" column="class_name"/>
+        <result property="class_week" column="class_week"/>
+        <result property="count" column="count"/>
+        <result property="startTime" column="startTime"/>
+        <association property="subject" javaType="cn.iruier.entity.Subject">
+            <id property="subj_id" column="subj_id"/>
+            <result property="subj_name" column="subj_name"/>
+        </association>
+    </resultMap>
+</mapper>

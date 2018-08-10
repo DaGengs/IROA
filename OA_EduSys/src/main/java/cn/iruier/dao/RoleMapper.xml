@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--约束文件 --><!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.iruier.dao.RoleMapper">
+    <insert id="save">
+        insert into t_role(role_name) values (#{role_name})
+    </insert>
+
+    <select id="queryByPage" resultMap="roleMenu">
+        select r.*,m.menu_name,m.menu_url,m.menu_icon,m2.menu_name menu_p_name from t_role r left join t_role_menu rm on
+        r.role_id = rm.role_id left join t_menu m on rm.menu_id = m.menu_id left join t_menu m2 on m.menu_p_id =
+        m2.menu_id limit #{index}, #{size}
+    </select>
+
+    <select id="queryRoles" resultMap="roleMenu">
+        select r.*,m.menu_name,m.menu_url,m.menu_icon,m2.menu_name menu_p_name from t_role r left join t_role_menu rm on
+        r.role_id = rm.role_id left join t_menu m on rm.menu_id = m.menu_id left join t_menu m2 on m.menu_p_id =
+        m2.menu_id
+    </select>
+
+    <select id="queryAll" resultType="Role">
+        select * from t_role
+    </select>
+
+    <select id="queryCount" resultType="Integer">
+        select count(*) from t_role
+    </select>
+
+    <update id="deleteRole">
+        delete from t_role where role_id = #{role_id}
+    </update>
+
+    <delete id="deleteMenu">
+        delete from t_role_menu where role_id = #{role_id}
+    </delete>
+
+    <insert id="updateMenu">
+        insert into t_role_menu(role_id, menu_id) values(#{role_id}, #{menu_id})
+    </insert>
+
+    <resultMap id="roleMenu" type="Role">
+        <id property="role_id" column="role_id"></id>
+        <result property="role_name" column="role_name"></result>
+        <collection property="menus" ofType="Menu">
+            <result property="menu_name" column="menu_name"></result>
+            <result property="menu_p_name" column="menu_p_name"></result>
+            <result property="menu_url" column="menu_url"></result>
+            <result property="menu_icon" column="menu_icon"></result>
+        </collection>
+    </resultMap>
+</mapper>

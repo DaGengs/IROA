@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>部门修改</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="media/layui/css/layui.css" media="all">
+    <script src="media/js/jquery.min.js"></script>
+    <script src="media/layui/layui.js"></script>
+    <script src="media/js/department.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var json = getData();
+            var obj = JSON.parse(decodeURI(json));
+            showData(obj);
+        })
+
+        function getData() {
+            var url = window.location.search;
+            index = url.indexOf("?");
+            if (index > -1) {
+                var str = url.substr(index + 1);
+                if (str.indexOf('=')) {
+                    return str.split('=')[1];
+                }
+            }
+            return null;
+        }
+
+        function showData(obj) {
+            $("#dept_id").val(obj.dept_id);
+            $("#dept_name").val(obj.dept_name);
+            $("#dept_p_name").val(obj.dept_p_name);
+            $("#dept_level").val(obj.dept_level);
+            $("#createtime").val(obj.createtime);
+        }
+    </script>
+</head>
+<body>
+<fieldset class="layui-elem-field layui-field-title">
+    <legend>部门修改</legend>
+    <div class="layui-field-box">
+        <div class="layui-container">
+            <form class="layui-form">
+                <div class="layui-row layui-col-md-offset4">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">部门编号</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="dept_id" class="layui-input" readonly>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">部门名称</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="dept_name" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">上级部门</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="dept_p_name" class="layui-input" disabled>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">部门等级</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="dept_level" class="layui-input" disabled>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">成立时间</label>
+                        <div class="layui-input-inline">
+                            <input type="text" id="createtime" class="layui-input" disabled>
+                        </div>
+                    </div>
+                    <div class="layui-form-item"
+                         style="margin-top: 50px; margin-left: 10px">
+                        <div class="layui-input-block">
+                            <button class="layui-btn layui-btn-normal" lay-submit="" lay-filter="update"
+                                    type="button">保存
+                            </button>
+                            <a class="layui-btn" href="javascript: window.location.href = document.referrer;"
+                               type="button">返回</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</fieldset>
+<hr class="layui-bg-blue">
+</body>
+</html>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--约束文件 -->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--该映射文件对应的接口 -->
+<mapper namespace="cn.iruier.dao.QuestionMapper">
+
+    <insert id="save" parameterType="Question">
+        insert into
+        t_question(stu_name,ques_content,ques_reply,createtime,status)
+        values(#{stu_name},#{ques_content},#{ques_reply},now(),1)
+    </insert>
+
+    <select id="queryByName" resultMap="question">
+        select q.* from t_question q
+        left join t_student s on q.stu_name = s.stu_name where s.stu_name =
+        #{name};
+    </select>
+
+    <resultMap type="Question" id="question">
+        <id property="ques_id" column="ques_id"/>
+        <result property="stu_name" column="stu_name"/>
+        <result property="ques_content" column="ques_content"/>
+        <result property="ques_reply" column="ques_reply"/>
+        <result property="createtime" column="createtime"/>
+        <result property="status" column="status"/>
+    </resultMap>
+</mapper>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>我的测评</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="media/layui/css/layui.css" media="all">
+    <script src="media/js/jquery.min.js"></script>
+    <script src="media/layui/layui.js"></script>
+</head>
+<body>
+<hr class="layui-bg-blue" style="margin-top: 50px">
+<table class="layui-hide" id="tbdata"></table>
+<script>
+    layui.use('table', function () {
+        var table = layui.table;
+
+        table.render({
+            elem: '#tbdata'
+            , url: '/demo/table/user/'
+            , cols: [[
+                {field: 'stu_name', width: '20%', title: '测评开始时间', align: 'center'}
+                , {field: 'week_content', width: '20%', title: '测评结束时间', align: 'center'}
+                , {field: 'createtime', width: '20%', title: '评价对象', align: 'center'}
+                , {field: 'status', width: '40%', title: '操作', align: 'center'}
+            ]]
+        });
+    });
+</script>
+</body>
+</html>

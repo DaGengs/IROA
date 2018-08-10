@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--约束文件 --><!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.iruier.dao.MenuMapper">
+    <insert id="save">
+        insert into t_menu(menu_name, menu_p_id, menu_url, menu_icon) values (#{menu_name}, #{menu_p_id}, #{menu_url},
+        #{menu_icon})
+    </insert>
+
+    <delete id="deleteMenu">
+        delete from t_menu where menu_id = #{menu_id}
+    </delete>
+
+    <update id="updateMenu" parameterType="Menu">
+        update t_menu
+        <set>
+            <if test="menu_name != null">
+                menu_name = #{menu_name},
+            </if>
+            <if test="menu_p_id >= 0">
+                menu_p_id = #{menu_p_id},
+            </if>
+            <if test="menu_url != null">
+                menu_url = #{menu_url},
+            </if>
+            <if test="menu_icon != null">
+                menu_icon = #{menu_icon}
+            </if>
+        </set>
+        <where>
+            <if test="menu_id >= 0">
+                menu_id = #{menu_id}
+            </if>
+        </where>
+    </update>
+
+    <select id="queryByPage" resultType="Menu">
+        select m1.*,m2.menu_name menu_p_name from t_menu m1 left join t_menu m2 on m2.menu_id = m1.menu_p_id limit
+        #{index}, #{size}
+    </select>
+
+    <select id="queryAll" resultMap="menuRole">
+        select m.*,m2.menu_name menu_p_name,r.role_id,r.role_name from t_menu m left join t_role_menu rm on m.menu_id =
+        rm.menu_id left join t_role r on rm.role_id = r.role_id left join t_menu m2 on m.menu_id = m2.menu_p_id
+    </select>
+
+    <select id="queryCount" resultType="Integer">
+        select count(*) from t_menu
+    </select>
+
+    <resultMap id="menuRole" type="Menu">
+        <id property="menu_id" column="menu_id"></id>
+        <result property="menu_name" column="menu_name"></result>
+        <result property="menu_p_id" column="menu_p_id"></result>
+        <result property="menu_p_name" column="menu_p_name"></result>
+        <result property="menu_url" column="menu_url"></result>
+        <result property="menu_icon" column="menu_icon"></result>
+        <collection property="roles" ofType="Role">
+            <result property="role_id" column="role_id"></result>
+            <result property="role_name" column="role_name"></result>
+        </collection>
+    </resultMap>
+</mapper>
